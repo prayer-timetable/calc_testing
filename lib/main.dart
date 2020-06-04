@@ -14,6 +14,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 // mobx
 import 'package:calc_testing/store/data.dart';
+import 'package:calc_testing/store/prayer.dart';
 
 // import components
 import 'package:calc_testing/components/Input.dart';
@@ -53,8 +54,6 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final _formKey = GlobalKey<FormState>();
-  final myController = TextEditingController();
   Timer tickTimer;
 
   @override
@@ -63,6 +62,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     tickTimer =
         Timer.periodic(Duration(seconds: 1), (Timer t) => dataStore.tick());
+
+    prayerStore.getPrayer();
   }
 
   @override
@@ -73,44 +74,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Input(), Data(), Prayers()],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Input(),
+          Data(),
+          Prayers(),
+        ],
+      ),
     );
   }
-
-  // ******************
-  // WIDGETS
-  // ******************
-  Widget form() => Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Enter your email',
-              ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton(
-                onPressed: () {
-                  // Validate will return true if the form is valid, or false if
-                  // the form is invalid.
-                  if (_formKey.currentState.validate()) {
-                    // Process data.
-                  }
-                },
-                child: Text('Submit'),
-              ),
-            ),
-          ],
-        ),
-      );
 }

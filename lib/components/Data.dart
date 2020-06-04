@@ -29,7 +29,7 @@ class _DataState extends State<Data> {
   void initState() {
     super.initState();
 
-    dataStore.getAltitude();
+    // dataStore.getAltitude();
   }
 
   @override
@@ -55,52 +55,57 @@ class _DataState extends State<Data> {
             //   height: 24.0,
             // ),
             Text('Current values:',
-                style: Theme.of(context).textTheme.headline5),
+                style: Theme.of(context).textTheme.headline2),
             Divider(color: Colors.black),
-            Wrap(
-              direction: Axis.horizontal,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              verticalDirection: VerticalDirection.down,
-              alignment: WrapAlignment.start,
-              runAlignment: WrapAlignment.start,
-              runSpacing: 32.0,
-              spacing: 32.0,
-              children: [
-                Text(
-                  'Latitude: ${dataStore.latitude}',
-                ),
-                Text(
-                  'Longitude: ${dataStore.longitude}',
-                ),
-                Text(
-                  'Altitude: ${dataStore.altitude}',
-                ),
-              ],
+            FittedBox(
+              child: Wrap(
+                direction: Axis.horizontal,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                runSpacing: 32.0,
+                spacing: 32.0,
+                children: [
+                  Text(
+                    'Lat: ${dataStore.latitude}°',
+                  ),
+                  Text(
+                    'Long: ${dataStore.longitude}°',
+                  ),
+                  Text(
+                    'Alt: ${dataStore.altitude}m',
+                  ),
+                ],
+              ),
             ),
-            Wrap(
-              direction: Axis.horizontal,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              verticalDirection: VerticalDirection.down,
-              alignment: WrapAlignment.start,
-              runAlignment: WrapAlignment.start,
-              runSpacing: 32.0,
-              spacing: 32.0,
-              children: [
-                Text(
-                  'Timezone: ${dataStore.timezone}',
-                ),
-                Text(
-                  'Fajr angle: ${dataStore.fajrAngle}',
-                ),
-                Text(
-                  'Isha angle: ${dataStore.ishaAngle}',
-                ),
-              ],
+            FittedBox(
+              child: Wrap(
+                direction: Axis.horizontal,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                runSpacing: 32.0,
+                spacing: 32.0,
+                children: [
+                  Text(
+                    'Timezone: ${dataStore.timezone}',
+                  ),
+                  Text(
+                    'Fajr angle: ${dataStore.fajrAngle}°',
+                  ),
+                  Text(
+                    'Isha angle: ${dataStore.ishaAngle}°',
+                  ),
+                ],
+              ),
             ),
             Divider(color: Colors.black),
+            SizedBox(height: 16.0),
             Text('${formatDate(dataStore.day, [d, ' ', MM, ' ', yyyy])}',
-                style: Theme.of(context).textTheme.headline5),
-            Text('${formatDate(dataStore.day, [H, ':', mm, ':', ss])}',
+                style: Theme.of(context).textTheme.headline3),
+            Text('${formatDate(dataStore.day, [H, ':', nn, ':', ss])}',
                 style: Theme.of(context).textTheme.headline5),
           ],
         ),

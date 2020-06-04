@@ -43,12 +43,12 @@ themeData() {
       ),
       // caption: TextStyle(fontWeight: FontWeight.w400, fontSize: 12.0),
       bodyText1: TextStyle(
-          fontSize: 20.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.normal,
           color: colorText,
           height: 1),
       bodyText2: TextStyle(
-          fontSize: 16.0,
+          fontSize: 14.0,
           fontWeight: FontWeight.normal,
           color: colorText,
           height: 1),

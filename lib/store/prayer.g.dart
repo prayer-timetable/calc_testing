@@ -235,11 +235,11 @@ mixin _$PrayerStore on PrayerStoreBase, Store {
   }
 
   @override
-  void getPrayer(int sec) {
+  void getPrayer() {
     final _$actionInfo = _$PrayerStoreBaseActionController.startAction(
         name: 'PrayerStoreBase.getPrayer');
     try {
-      return super.getPrayer(sec);
+      return super.getPrayer();
     } finally {
       _$PrayerStoreBaseActionController.endAction(_$actionInfo);
     }

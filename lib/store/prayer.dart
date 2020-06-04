@@ -87,26 +87,37 @@ abstract class PrayerStoreBase with Store {
 
   @action
   void getPrayer() {
-    var location;
+    // var location;
 
     // CALC
     // Sarajevo
-    if (prayerStore.method) {
-      // double latS = 43.8563;
-      // double longS = 18.4131;
-      // double altitudeS = 518;
-      // double angleS = 14.6;
-      // int timezoneS = 1;
+    // if (prayerStore.method) {
+    //   // double latS = 43.8563;
+    //   // double longS = 18.4131;
+    //   // double altitudeS = 518;
+    //   // double angleS = 14.6;
+    //   // int timezoneS = 1;
 
-      location = new PrayerCalc(dataStore.timezone, dataStore.latitude,
-          dataStore.longitude, dataStore.altitude, dataStore.fajrAngle,
-          ishaAngle: dataStore.ishaAngle);
-    } else {
-      // TIMETABLE
+    //   location = new PrayerCalc(dataStore.timezone, dataStore.latitude,
+    //       dataStore.longitude, dataStore.altitude, dataStore.fajrAngle,
+    //       ishaAngle: dataStore.ishaAngle);
+    // } else {
+    //   // TIMETABLE
 
-    }
+    // }
+    double _lat = dataStore.latitude ?? 43.8563;
+    double _long = dataStore.longitude ?? 18.4131;
+    double _altitude = dataStore.altitude ?? 518;
+    double _angle = dataStore.fajrAngle ?? 14.6;
+    double _ishaAngle = dataStore.ishaAngle ?? 14.6;
+    int _timezone = dataStore.timezone ?? 1;
 
-    // COMMON
+    PrayerCalc location = new PrayerCalc(
+        _timezone, _lat, _long, _altitude, _angle,
+        ishaAngle: _ishaAngle);
+    // print(location);
+
+    // // COMMON
     var _prayers = location.durations.isAfterIsha
         ? location.prayers.next
         : location.prayers.current;

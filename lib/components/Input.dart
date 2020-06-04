@@ -1,4 +1,5 @@
 // import dart and flutter resources
+import 'package:calc_testing/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'dart:math' as math;
@@ -6,6 +7,7 @@ import 'package:flutter/services.dart';
 // import package resources
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 // import local package resources
 
@@ -76,6 +78,67 @@ class _InputState extends State<Input> {
             // SizedBox(
             //   height: 24.0,
             // ),
+            Container(
+              width: 400,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RaisedButton(
+                      color: colorTextLight,
+                      onPressed: () {
+                        DatePicker.showDatePicker(context,
+                            showTitleActions: true,
+                            minTime: DateTime(2000, 1, 1),
+                            maxTime: DateTime(2030, 12, 31), onChanged: (date) {
+                          print('change $date');
+                        }, onConfirm: (date) {
+                          print('confirm $date');
+                          dataStore.setDay(DateTime(
+                              date.year,
+                              date.month,
+                              date.day,
+                              dataStore.day.hour,
+                              dataStore.day.minute,
+                              dataStore.day.second));
+                        }, currentTime: dataStore.day, locale: LocaleType.en);
+                      },
+                      child: Text(
+                        'Pick date',
+                        style: TextStyle(color: colorPrimary),
+                      )),
+                  RaisedButton(
+                      color: colorTextLight,
+                      onPressed: () {
+                        DatePicker.showTimePicker(context,
+                            showTitleActions: true, onChanged: (time) {
+                          print('change $time');
+                        }, onConfirm: (time) {
+                          print('confirm $time');
+                          dataStore.setDay(DateTime(
+                              dataStore.day.year,
+                              dataStore.day.month,
+                              dataStore.day.day,
+                              time.hour,
+                              time.minute,
+                              time.second));
+                        }, currentTime: dataStore.day, locale: LocaleType.en);
+                      },
+                      child: Text(
+                        'Pick time',
+                        style: TextStyle(color: colorPrimary),
+                      )),
+                  RaisedButton(
+                    color: colorTextLight,
+                    onPressed: () => dataStore.setDay(DateTime.now()),
+                    child: Text(
+                      'Reset',
+                      style: TextStyle(color: colorPrimary),
+                    ),
+                  )
+                ],
+              ),
+            ),
+
             Row(
               children: [
                 Expanded(

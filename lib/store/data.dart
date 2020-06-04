@@ -37,6 +37,7 @@ abstract class DataBase with Store {
   tick() {
     day = day.add(Duration(seconds: 1));
     prayerStore.getPrayer();
+    // print('${prayerStore.current}');
   }
 
   // **********
