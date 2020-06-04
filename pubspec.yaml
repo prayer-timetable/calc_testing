@@ -32,6 +32,7 @@ dependencies:
   mobx_codegen: ^1.1.0
 
   date_format: ^1.0.8
+  hijri: ^1.0.0
 
   prayer_calc:
     git:

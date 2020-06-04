@@ -18,6 +18,10 @@ import 'package:calc_testing/store/data.dart';
 // import components
 import 'package:calc_testing/components/Input.dart';
 import 'package:calc_testing/components/Data.dart';
+import 'package:calc_testing/components/Prayers.dart';
+
+// local
+import 'package:calc_testing/theme/theme.dart';
 
 // parts and their imports
 part 'package:calc_testing/parts/main.dart';
@@ -26,11 +30,12 @@ part 'package:calc_testing/parts/hive.dart';
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'Prayer Calc Sandbox';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: themeData(),
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
@@ -69,7 +74,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Input(), Data()],
+      children: [Input(), Data(), Prayers()],
     );
   }
 

@@ -212,6 +212,19 @@ mixin _$DataStore on DataBase, Store {
     return _$setIshaAngleAsyncAction.run(() => super.setIshaAngle(newdata));
   }
 
+  final _$DataBaseActionController = ActionController(name: 'DataBase');
+
+  @override
+  dynamic tick() {
+    final _$actionInfo =
+        _$DataBaseActionController.startAction(name: 'DataBase.tick');
+    try {
+      return super.tick();
+    } finally {
+      _$DataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

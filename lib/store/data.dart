@@ -4,6 +4,8 @@ import 'dart:io' show Platform;
 import 'package:mobx/mobx.dart';
 import 'package:hive/hive.dart';
 
+import 'package:calc_testing/store/prayer.dart';
+
 part 'data.g.dart';
 
 class DataStore = DataBase with _$DataStore;
@@ -34,6 +36,7 @@ abstract class DataBase with Store {
   @action
   tick() {
     day = day.add(Duration(seconds: 1));
+    prayerStore.getPrayer();
   }
 
   // **********
