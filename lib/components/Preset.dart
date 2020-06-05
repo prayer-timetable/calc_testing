@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:date_format/date_format.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:location/location.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 // import local package resources
 

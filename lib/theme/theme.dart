@@ -13,7 +13,7 @@ themeData() {
     canvasColor: colorSecondary,
     accentColor: colorHighlight,
     primarySwatch: Colors.blue,
-    // fontFamily: 'SourceSansPro',
+    fontFamily: 'SourceSansPro',
     scaffoldBackgroundColor: colorBackground,
     // Define the default TextTheme. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
