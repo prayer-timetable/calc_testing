@@ -71,6 +71,7 @@ class Strings {
   final String countupNameFrom;
   final String countupTime;
   final List<String> prayers;
+  final List<String> prayersSeconds;
   final String current;
   final String updated;
   final String midnight;
@@ -87,6 +88,7 @@ class Strings {
     this.countupNameFrom,
     this.countupTime,
     this.prayers,
+    this.prayersSeconds,
     this.current,
     this.updated,
     this.midnight,

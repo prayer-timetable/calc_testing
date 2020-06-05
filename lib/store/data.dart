@@ -40,6 +40,35 @@ abstract class DataBase with Store {
     // print('${prayerStore.current}');
   }
 
+  @action
+  preset(value) {
+    switch (value) {
+      case 'sarajevo':
+        latitude = 43.8563;
+        longitude = 18.4131;
+        altitude = 518;
+        timezone = 1;
+        fajrAngle = 14.6;
+        ishaAngle = 14.6;
+        break;
+      case 'dublin':
+        latitude = 53.3046593;
+        longitude = -6.2344076;
+        altitude = 85;
+        timezone = 0;
+        fajrAngle = 12.35;
+        ishaAngle = 11.75;
+        break;
+      default:
+        latitude = 43.8563;
+        longitude = 18.4131;
+        altitude = 518;
+        timezone = 1;
+        fajrAngle = 14.6;
+        ishaAngle = 14.6;
+    }
+  }
+
   // **********
   // GET
   @action
@@ -102,14 +131,14 @@ abstract class DataBase with Store {
 
   @action
   setLongitude(newdata) async {
-    longitude = newdata;
+    longitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('longitude', newdata);
   }
 
   @action
   setAltitude(newdata) async {
-    altitude = newdata;
+    altitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('altitude', newdata);
   }
@@ -123,14 +152,14 @@ abstract class DataBase with Store {
 
   @action
   setFajrAngle(newdata) async {
-    fajrAngle = newdata;
+    fajrAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('fajrAngle', newdata);
   }
 
   @action
   setIshaAngle(newdata) async {
-    ishaAngle = newdata;
+    ishaAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('ishaAngle', newdata);
   }

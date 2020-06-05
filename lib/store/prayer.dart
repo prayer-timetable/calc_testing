@@ -113,8 +113,21 @@ abstract class PrayerStoreBase with Store {
     int _timezone = dataStore.timezone ?? 1;
 
     PrayerCalc location = new PrayerCalc(
-        _timezone, _lat, _long, _altitude, _angle,
-        ishaAngle: _ishaAngle);
+      _timezone,
+      _lat,
+      _long,
+      _altitude,
+      _angle,
+      ishaAngle: _ishaAngle,
+      year: dataStore.day.year,
+      month: dataStore.day.month,
+      day: dataStore.day.day,
+      hour: dataStore.day.hour,
+      minute: dataStore.day.minute,
+      second: dataStore.day.second,
+      time: dataStore.day,
+      showSeconds: true,
+    );
     // print(location);
 
     // // COMMON
@@ -125,6 +138,8 @@ abstract class PrayerStoreBase with Store {
     var _hDate = new UmmAlquraCalendar.fromDate(location.durations.nowLocal);
 
     int _hijriMonth = int.parse(_hDate.toFormat("m")) - 1;
+
+    // print(location.durations.nowLocal);
 
     Strings _strings = new Strings(
       now: '${formatDate(location.durations.nowLocal, [H, ':', nn, ':', ss])}',
@@ -143,6 +158,14 @@ abstract class PrayerStoreBase with Store {
         formatDate(_prayers.afternoon, [H, ':', nn]),
         formatDate(_prayers.sunset, [H, ':', nn]),
         formatDate(_prayers.dusk, [H, ':', nn]),
+      ],
+      prayersSeconds: [
+        formatDate(_prayers.dawn, [ss]),
+        formatDate(_prayers.sunrise, [ss]),
+        formatDate(_prayers.midday, [ss]),
+        formatDate(_prayers.afternoon, [ss]),
+        formatDate(_prayers.sunset, [ss]),
+        formatDate(_prayers.dusk, [ss]),
       ],
       countdownName:
           '${capitalise(namesPrayer[location.durations.currentId < 5 ? location.durations.currentId + 1 : 0])}',

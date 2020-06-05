@@ -163,14 +163,28 @@ class _PrayersState extends State<Prayers> with TickerProviderStateMixin {
 
             // ADHAN
             Expanded(
-              child: Text(prayerStore.strings.prayers[no],
-                  textAlign: TextAlign.right,
-                  style: prayerStore.nextId == no
-                      ? Theme.of(context).textTheme.bodyText1.apply(
-                            fontWeightDelta: 3,
-                            color: colorPrimary,
-                          )
-                      : Theme.of(context).textTheme.bodyText1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(prayerStore.strings.prayers[no],
+                      textAlign: TextAlign.right,
+                      style: prayerStore.nextId == no
+                          ? Theme.of(context).textTheme.bodyText1.apply(
+                                fontWeightDelta: 3,
+                                color: colorPrimary,
+                              )
+                          : Theme.of(context).textTheme.bodyText1),
+                  Text(':'),
+                  Text(prayerStore.strings.prayersSeconds[no],
+                      textAlign: TextAlign.right,
+                      style: prayerStore.nextId == no
+                          ? Theme.of(context).textTheme.bodyText1.apply(
+                                fontWeightDelta: 3,
+                                color: colorPrimary,
+                              )
+                          : Theme.of(context).textTheme.bodyText1),
+                ],
+              ),
             ),
           ],
         ),

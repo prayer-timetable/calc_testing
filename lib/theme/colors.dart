@@ -29,7 +29,8 @@ Color colorTextLight = Color(0xffffffff); // #ffffff
 
 // transparent
 Color colorWhiteTrans = Color(0x33ffffff);
+Color colorGrayTrans = Color(0xaaeeeeee);
 Color colorBlackTrans = Color(0x33000000);
 Color colorBlackTransLite = Color(0x11000000);
 Color colorBlackTransDark = Color(0xaa000000);
-Color colorPrimaryTrans = Color(0x77264653); // #264653
+Color colorPrimaryTrans = Color(0x33264653); // #264653

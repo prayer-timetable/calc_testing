@@ -226,6 +226,17 @@ mixin _$DataStore on DataBase, Store {
   }
 
   @override
+  dynamic preset(dynamic value) {
+    final _$actionInfo =
+        _$DataBaseActionController.startAction(name: 'DataBase.preset');
+    try {
+      return super.preset(value);
+    } finally {
+      _$DataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 day: ${day},

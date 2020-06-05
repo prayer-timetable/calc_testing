@@ -44,7 +44,8 @@ class _DataState extends State<Data> {
     return Observer(
       builder: (_) => Container(
         padding: EdgeInsets.all(16.0),
-        width: MediaQuery.of(context).size.width,
+        // width: MediaQuery.of(context).size.width,
+        width: 400,
         // height: double.maxFinite,
         // color: Colors.red,
         child: Column(
@@ -54,8 +55,7 @@ class _DataState extends State<Data> {
             // SizedBox(
             //   height: 24.0,
             // ),
-            Text('Current values:',
-                style: Theme.of(context).textTheme.headline2),
+            Text('Parametri:', style: Theme.of(context).textTheme.headline2),
             Divider(color: Colors.black),
             FittedBox(
               child: Wrap(
@@ -101,12 +101,29 @@ class _DataState extends State<Data> {
                 ],
               ),
             ),
+            FittedBox(
+              child: Wrap(
+                direction: Axis.horizontal,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                alignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.start,
+                runSpacing: 32.0,
+                spacing: 32.0,
+                children: [
+                  Text(
+                    'Asr: Shaafi',
+                  ),
+                  Text(
+                    'Summertime: auto',
+                  ),
+                  Text(
+                    'Sec precision: true',
+                  ),
+                ],
+              ),
+            ),
             Divider(color: Colors.black),
-            SizedBox(height: 16.0),
-            Text('${formatDate(dataStore.day, [d, ' ', MM, ' ', yyyy])}',
-                style: Theme.of(context).textTheme.headline3),
-            Text('${formatDate(dataStore.day, [H, ':', nn, ':', ss])}',
-                style: Theme.of(context).textTheme.headline5),
           ],
         ),
       ),

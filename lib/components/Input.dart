@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 // import package resources
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:date_format/date_format.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 // import local package resources
 
@@ -71,6 +70,7 @@ class _InputState extends State<Input> {
 
     return Observer(
       builder: (_) => Container(
+        width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,208 +78,176 @@ class _InputState extends State<Input> {
             // SizedBox(
             //   height: 24.0,
             // ),
+
             Container(
               width: 400,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RaisedButton(
-                      color: colorTextLight,
-                      onPressed: () {
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime(2000, 1, 1),
-                            maxTime: DateTime(2030, 12, 31), onChanged: (date) {
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          print('confirm $date');
-                          dataStore.setDay(DateTime(
-                              date.year,
-                              date.month,
-                              date.day,
-                              dataStore.day.hour,
-                              dataStore.day.minute,
-                              dataStore.day.second));
-                        }, currentTime: dataStore.day, locale: LocaleType.en);
-                      },
-                      child: Text(
-                        'Pick date',
-                        style: TextStyle(color: colorPrimary),
-                      )),
-                  RaisedButton(
-                      color: colorTextLight,
-                      onPressed: () {
-                        DatePicker.showTimePicker(context,
-                            showTitleActions: true, onChanged: (time) {
-                          print('change $time');
-                        }, onConfirm: (time) {
-                          print('confirm $time');
-                          dataStore.setDay(DateTime(
-                              dataStore.day.year,
-                              dataStore.day.month,
-                              dataStore.day.day,
-                              time.hour,
-                              time.minute,
-                              time.second));
-                        }, currentTime: dataStore.day, locale: LocaleType.en);
-                      },
-                      child: Text(
-                        'Pick time',
-                        style: TextStyle(color: colorPrimary),
-                      )),
-                  RaisedButton(
-                    color: colorTextLight,
-                    onPressed: () => dataStore.setDay(DateTime.now()),
-                    child: Text(
-                      'Reset',
-                      style: TextStyle(color: colorPrimary),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        // controller: controllerLatitude,
+                        controller: TextEditingController(
+                            text: '${dataStore.latitude}'),
+                        // maxLength: 10,
+                        decoration: new InputDecoration(labelText: "Latitude"),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          _amountValidator,
+                          // WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be entered
+                        // onEditingComplete: () => print('koko'),
+                        onEditingComplete: () =>
+                            FocusScope.of(context).nextFocus(),
+                        onSubmitted: (text) => dataStore.setLatitude(text),
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
                     ),
-                  )
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: '${dataStore.longitude}'), // maxLength: 10,
+                        decoration: new InputDecoration(labelText: "Longitude"),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          _amountValidator,
+                          // WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be entered
+                        // onEditingComplete: () => print('koko'),
+                        onEditingComplete: () =>
+                            FocusScope.of(context).nextFocus(),
+                        onSubmitted: (text) => dataStore.setLongitude(text),
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerLatitude,
-                      // maxLength: 10,
-                      decoration: new InputDecoration(labelText: "Latitude"),
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [
-                        _amountValidator,
-                        // WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      // onEditingComplete: () => print('koko'),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).nextFocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
+            Container(
+              width: 400,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: '${dataStore.altitude}'),
+                        decoration: new InputDecoration(labelText: "Altitude"),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          _amountValidator,
+                          // WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be entered
+                        onEditingComplete: () =>
+                            FocusScope.of(context).nextFocus(),
+                        onSubmitted: (text) => dataStore.setAltitude(text),
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerLongitude,
-                      // maxLength: 10,
-                      decoration: new InputDecoration(labelText: "Longitude"),
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [
-                        _amountValidator,
-                        // WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      // onEditingComplete: () => print('koko'),
-                      onEditingComplete: () =>
-                          FocusScope.of(context).nextFocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
+                  // timezone
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: '${dataStore.timezone}'),
+                        decoration: new InputDecoration(labelText: "Timezone"),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be entered
+                        // onEditingComplete: () => print('koko'),
+                        onEditingComplete: () =>
+                            FocusScope.of(context).nextFocus(),
+                        onSubmitted: (text) => dataStore.setTimezone(text),
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerAltitude,
-                      decoration: new InputDecoration(labelText: "Altitude"),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      onEditingComplete: () => FocusScope.of(context).unfocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
+            Container(
+              width: 400,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: '${dataStore.fajrAngle}'),
+                        decoration:
+                            new InputDecoration(labelText: "Fajr angle"),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          _amountValidator,
+                          // WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be enterednly numbers can be entered
+                        onEditingComplete: () =>
+                            FocusScope.of(context).nextFocus(),
+                        onSubmitted: (text) => dataStore.setFajrAngle(text),
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
                     ),
                   ),
-                ),
-                // timezone
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerTimezone,
-                      decoration: new InputDecoration(labelText: "Timezone"),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      // onEditingComplete: () => print('koko'),
-                      onEditingComplete: () => FocusScope.of(context).unfocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                  // ishaAngle
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: '${dataStore.ishaAngle}'),
+                        decoration:
+                            new InputDecoration(labelText: "Isha angle"),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          _amountValidator,
+                          // WhitelistingTextInputFormatter.digitsOnly,
+                          // CustomRangeTextInputFormatter(),
+                        ], // Only numbers can be entered// Only numbers can be entered
+                        // onEditingComplete: () => print('koko'),
+                        onEditingComplete: () =>
+                            FocusScope.of(context).unfocus(),
+                        onSubmitted: (text) => dataStore.setIshaAngle(text),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerFajrAngle,
-                      decoration: new InputDecoration(labelText: "Fajr angle"),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      onEditingComplete: () => FocusScope.of(context).unfocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
+                        // onChanged: (text) {
+                        //   dataStore.setLatitude(text);
+                        // },
+                      ),
                     ),
                   ),
-                ),
-                // ishaAngle
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: controllerIshaAngle,
-                      decoration: new InputDecoration(labelText: "Isha angle"),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly,
-                        // CustomRangeTextInputFormatter(),
-                      ], // Only numbers can be entered
-                      // onEditingComplete: () => print('koko'),
-                      onEditingComplete: () => FocusScope.of(context).unfocus(),
-                      onSubmitted: (text) => print('$text'),
-                      // onChanged: (text) {
-                      //   dataStore.setLatitude(text);
-                      // },
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

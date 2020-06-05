@@ -98,20 +98,20 @@ themeData() {
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
         height: 1.5,
-        color: colorHighlight,
-        // shadows: <Shadow>[
-        //   Shadow(
-        //     offset: Offset(0.5, 0.5),
-        //     blurRadius: 2.0,
-        //     color: colorPrimary,
-        //   ),
-        // ],
+        color: colorPrimary,
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(0.5, 0.5),
+            blurRadius: 1.0,
+            color: colorHighlight,
+          ),
+        ],
       ),
       // countdown secondary
       headline5: TextStyle(
         fontWeight: FontWeight.w700,
         color: colorText,
-        fontSize: 28.0,
+        fontSize: 24.0,
         shadows: <Shadow>[
           Shadow(
             offset: Offset(0.5, 0.5),
