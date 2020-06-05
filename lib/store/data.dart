@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:location/location.dart';
 
 // import package resources
 import 'package:mobx/mobx.dart';
@@ -59,6 +60,9 @@ abstract class DataBase with Store {
         fajrAngle = 12.35;
         ishaAngle = 11.75;
         break;
+      case 'auto':
+        checkLocation();
+        break;
       default:
         latitude = 43.8563;
         longitude = 18.4131;
@@ -67,6 +71,47 @@ abstract class DataBase with Store {
         fajrAngle = 14.6;
         ishaAngle = 14.6;
     }
+  }
+
+  // @action
+  checkLocation() async {
+    // location
+    Location location = new Location();
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+    // print('before');
+    // final String _currentTimeZone =
+    //     await FlutterNativeTimezone.getLocalTimezone();
+    // // print(_locationData.time);
+    // print(_currentTimeZone);
+    // print('after');
+
+    print(_locationData.altitude);
+    int timeZone = dataStore.day.toUtc().timeZoneOffset.inHours;
+
+    dataStore.setLatitude(_locationData.latitude.toString());
+    dataStore.setLongitude(_locationData.longitude.toString());
+    dataStore.setAltitude(_locationData.altitude.toString());
+    dataStore.setTimezone(timeZone);
   }
 
   // **********

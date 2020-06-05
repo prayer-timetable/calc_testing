@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:date_format/date_format.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
+import 'package:location/location.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 // import local package resources
 
@@ -24,6 +26,7 @@ class Preset extends StatefulWidget {
 }
 
 class _PresetState extends State<Preset> {
+  // dropdown
   final List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Sarajevo'),
@@ -32,13 +35,20 @@ class _PresetState extends State<Preset> {
     DropdownMenuItem(
       child: Text('Dublin'),
       value: 'dublin',
-    )
+    ),
+    DropdownMenuItem(
+      child: Text('Auto'),
+      value: 'auto',
+    ),
   ];
   String selectedValue;
 
   @override
   void initState() {
     super.initState();
+    // Future.delayed(const Duration(milliseconds: 1000), () {
+    //   dataStore.checkLocation();
+    // });
 
     // dataStore.getAltitude();
   }
