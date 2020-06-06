@@ -140,7 +140,7 @@ adb -s FPMDU18124001349 logcat \*:S flutter:V, TSBackgroundFetch:V
 
 # rebuild mobx generated files
 
-flutter clean && flutter pub get && rm -rf lib/store/mobx/\*.g.dart
+flutter clean && flutter pub get && rm -rf lib/store/\*.g.dart
 flutter clean ; flutter pub get ; Remove-Item lib/store/mobx/\*.g.dart -Recurse -Force
 flutter packages pub run build_runner build
 
