@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // import package resources
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:date_format/date_format.dart';
 
 // import local package resources
 

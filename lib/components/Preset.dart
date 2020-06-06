@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 
 // import package resources
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:date_format/date_format.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
-import 'package:location/location.dart';
 import 'package:search_choices/search_choices.dart';
 
 // import local package resources
@@ -117,8 +114,8 @@ class _PresetState extends State<Preset> {
                             ? colorBackground
                             : colorTextLight,
                         onPressed: () {
-                          _isButtonDisabled ? null : dataStore.save();
-                          _isButtonDisabled ? null : _changeText();
+                          if (!_isButtonDisabled) dataStore.save();
+                          if (!_isButtonDisabled) _changeText();
                         },
                         child: Text(_saveString)))
               ],

@@ -1,4 +1,3 @@
-import 'dart:io' show Platform;
 import 'package:location/location.dart';
 
 // import package resources

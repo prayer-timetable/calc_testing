@@ -8,7 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 // import local package resources
 
 // mobx
-import 'package:calc_testing/store/data.dart';
+// import 'package:calc_testing/store/data.dart';
 
 class Input extends StatefulWidget {
   Input({Key key, this.title, this.lite}) : super(key: key);

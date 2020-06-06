@@ -48,4 +48,4 @@ key.jks
 key.properties
 ios/Flutter/flutter_export_environment.sh
 # mobx generated
-lib/store/mobx/*.g.dart
+lib/store/*.g.dart
