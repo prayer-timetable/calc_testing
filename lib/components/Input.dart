@@ -26,19 +26,6 @@ class Input extends StatefulWidget {
 
 class _InputState extends State<Input> {
   // widget.title;
-  final controllerDay = TextEditingController(text: '${dataStore.day}');
-  final controllerLatitude =
-      TextEditingController(text: '${dataStore.latitude}');
-  final controllerLongitude =
-      TextEditingController(text: '${dataStore.longitude}');
-  final controllerAltitude =
-      TextEditingController(text: '${dataStore.altitude}');
-  final controllerTimezone =
-      TextEditingController(text: '${dataStore.timezone}');
-  final controllerFajrAngle =
-      TextEditingController(text: '${dataStore.fajrAngle}');
-  final controllerIshaAngle =
-      TextEditingController(text: '${dataStore.ishaAngle}');
 
   final _amountValidator = RegExInputFormatter.withRegex(
       '^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
@@ -46,6 +33,8 @@ class _InputState extends State<Input> {
   @override
   void initState() {
     super.initState();
+    dataStore.load();
+    // controllerLatitude.text = dataStore.latitude.toString();
 
     // Start listening to changes.
     // myController.addListener(_printLatestValue);
@@ -86,9 +75,9 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        // controller: controllerLatitude,
-                        controller: TextEditingController(
-                            text: '${dataStore.latitude}'),
+                        controller: dataStore.controllerLatitude,
+                        // controller: TextEditingController(
+                        //     text: '${dataStore.latitude}'),
                         // maxLength: 10,
                         decoration: new InputDecoration(labelText: "Latitude"),
                         keyboardType:
@@ -99,9 +88,13 @@ class _InputState extends State<Input> {
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be entered
                         // onEditingComplete: () => print('koko'),
-                        onEditingComplete: () =>
-                            FocusScope.of(context).nextFocus(),
-                        onSubmitted: (text) => dataStore.setLatitude(text),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          dataStore
+                              .setLatitude(dataStore.controllerLatitude.text);
+                          cityStore.setCityValue('');
+                        },
+                        // onSubmitted: (text) => dataStore.setLatitude(text),
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);
                         // },
@@ -112,8 +105,7 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller: TextEditingController(
-                            text: '${dataStore.longitude}'), // maxLength: 10,
+                        controller: dataStore.controllerLongitude,
                         decoration: new InputDecoration(labelText: "Longitude"),
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -123,9 +115,13 @@ class _InputState extends State<Input> {
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be entered
                         // onEditingComplete: () => print('koko'),
-                        onEditingComplete: () =>
-                            FocusScope.of(context).nextFocus(),
-                        onSubmitted: (text) => dataStore.setLongitude(text),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          dataStore
+                              .setLongitude(dataStore.controllerLongitude.text);
+                          cityStore.setCityValue('');
+                        },
+                        // onSubmitted: (text) => dataStore.setLongitude(text),
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);
                         // },
@@ -144,8 +140,7 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller: TextEditingController(
-                            text: '${dataStore.altitude}'),
+                        controller: dataStore.controllerAltitude,
                         decoration: new InputDecoration(labelText: "Altitude"),
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -154,9 +149,13 @@ class _InputState extends State<Input> {
                           // WhitelistingTextInputFormatter.digitsOnly,
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be entered
-                        onEditingComplete: () =>
-                            FocusScope.of(context).nextFocus(),
-                        onSubmitted: (text) => dataStore.setAltitude(text),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          dataStore
+                              .setAltitude(dataStore.controllerAltitude.text);
+                          cityStore.setCityValue('');
+                        },
+                        // onSubmitted: (text) => dataStore.setAltitude(text),
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);
                         // },
@@ -168,8 +167,7 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller: TextEditingController(
-                            text: '${dataStore.timezone}'),
+                        controller: dataStore.controllerTimezone,
                         decoration: new InputDecoration(labelText: "Timezone"),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
@@ -177,9 +175,13 @@ class _InputState extends State<Input> {
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be entered
                         // onEditingComplete: () => print('koko'),
-                        onEditingComplete: () =>
-                            FocusScope.of(context).nextFocus(),
-                        onSubmitted: (text) => dataStore.setTimezone(text),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          dataStore
+                              .setTimezone(dataStore.controllerTimezone.text);
+                          cityStore.setCityValue('');
+                        },
+                        // onSubmitted: (text) => dataStore.setTimezone(text),
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);
                         // },
@@ -198,8 +200,7 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller: TextEditingController(
-                            text: '${dataStore.fajrAngle}'),
+                        controller: dataStore.controllerFajrAngle,
                         decoration:
                             new InputDecoration(labelText: "Fajr angle"),
                         keyboardType:
@@ -209,9 +210,13 @@ class _InputState extends State<Input> {
                           // WhitelistingTextInputFormatter.digitsOnly,
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be enterednly numbers can be entered
-                        onEditingComplete: () =>
-                            FocusScope.of(context).nextFocus(),
-                        onSubmitted: (text) => dataStore.setFajrAngle(text),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          dataStore
+                              .setFajrAngle(dataStore.controllerFajrAngle.text);
+                          cityStore.setCityValue('');
+                        },
+                        // onSubmitted: (text) => dataStore.setFajrAngle(text),
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);
                         // },
@@ -223,8 +228,7 @@ class _InputState extends State<Input> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller: TextEditingController(
-                            text: '${dataStore.ishaAngle}'),
+                        controller: dataStore.controllerIshaAngle,
                         decoration:
                             new InputDecoration(labelText: "Isha angle"),
                         keyboardType:
@@ -235,13 +239,17 @@ class _InputState extends State<Input> {
                           // CustomRangeTextInputFormatter(),
                         ], // Only numbers can be entered// Only numbers can be entered
                         // onEditingComplete: () => print('koko'),
-                        onEditingComplete: () =>
-                            FocusScope.of(context).unfocus(),
-                        onSubmitted: (text) {
-                          dataStore.setIshaAngle(text);
-                          // print('new value $text');
+                        onEditingComplete: () {
+                          FocusScope.of(context).unfocus();
+                          dataStore
+                              .setIshaAngle(dataStore.controllerIshaAngle.text);
                           cityStore.setCityValue('');
                         },
+                        // onSubmitted: (text) {
+                        //   dataStore.setIshaAngle(text);
+                        //   // print('new value $text');
+                        //   cityStore.setCityValue('');
+                        // },
 
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);

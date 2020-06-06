@@ -39,7 +39,7 @@ class _PresetState extends State<Preset> {
     // });
     _saveString = 'Spasi';
     _isButtonDisabled = false;
-    dataStore.load();
+    // dataStore.load();
     // dataStore.getAltitude();
   }
 
@@ -101,7 +101,7 @@ class _PresetState extends State<Preset> {
                     onChanged: (value) {
                       dataStore.preset(value);
                       cityStore.setCityValue(value);
-                      // print(value);
+                      print(value);
                     },
                     closeButton: "Zatvori",
                     isExpanded: true,

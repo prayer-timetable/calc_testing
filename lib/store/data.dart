@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
 // import package resources
@@ -35,12 +36,37 @@ abstract class DataBase with Store {
   @observable
   double ishaAngle = 14.6;
 
+  @observable
+  TextEditingController controllerLatitude = TextEditingController(text: '0');
+
+  @observable
+  TextEditingController controllerLongitude = TextEditingController(text: '0');
+
+  @observable
+  TextEditingController controllerAltitude = TextEditingController(text: '0');
+
+  @observable
+  TextEditingController controllerTimezone = TextEditingController(text: '0');
+
+  @observable
+  TextEditingController controllerFajrAngle =
+      TextEditingController(text: '14.6');
+
+  @observable
+  TextEditingController controllerIshaAngle =
+      TextEditingController(text: '14.6');
+
+  // final controllerDay = TextEditingController(text: '${dataStore.day}');
+
   @action
   tick() {
     day = day.add(Duration(seconds: 1));
     prayerStore.getPrayer();
     // print('${prayerStore.current}');
   }
+
+  // @computed
+  // String get fullName => '$firstName, $lastName';
 
   @action
   preset(value) {
@@ -72,6 +98,13 @@ abstract class DataBase with Store {
         fajrAngle = 14.6;
         ishaAngle = 14.6;
     }
+
+    controllerLatitude.text = latitude.toString();
+    controllerLongitude.text = longitude.toString();
+    controllerAltitude.text = altitude.toString();
+    controllerTimezone.text = timezone.toString();
+    controllerFajrAngle.text = fajrAngle.toString();
+    controllerIshaAngle.text = ishaAngle.toString();
   }
 
   // @action
@@ -107,12 +140,19 @@ abstract class DataBase with Store {
     // print('after');
 
     // print(_locationData.altitude);
-    int timeZone = dataStore.day.toUtc().timeZoneOffset.inHours;
+    int timeZone = day.toUtc().timeZoneOffset.inHours;
 
-    dataStore.setLatitude(_locationData.latitude.toString());
-    dataStore.setLongitude(_locationData.longitude.toString());
-    dataStore.setAltitude(_locationData.altitude.toString());
-    dataStore.setTimezone(timeZone);
+    setLatitude(_locationData.latitude.toString());
+    setLongitude(_locationData.longitude.toString());
+    setAltitude(_locationData.altitude.toString());
+    setTimezone(timeZone);
+
+    controllerLatitude.text = latitude.toString();
+    controllerLongitude.text = longitude.toString();
+    controllerAltitude.text = altitude.toString();
+    controllerTimezone.text = timezone.toString();
+    controllerFajrAngle.text = fajrAngle.toString();
+    controllerIshaAngle.text = ishaAngle.toString();
   }
 
   @action
@@ -136,48 +176,55 @@ abstract class DataBase with Store {
     ishaAngle = prefs.get('ishaAngle') ?? ishaAngle;
     fajrAngle = prefs.get('fajrAngle') ?? fajrAngle;
     cityStore.getCityValue();
+
+    controllerLatitude.text = latitude.toString();
+    controllerLongitude.text = longitude.toString();
+    controllerAltitude.text = altitude.toString();
+    controllerTimezone.text = timezone.toString();
+    controllerFajrAngle.text = fajrAngle.toString();
+    controllerIshaAngle.text = ishaAngle.toString();
   }
 
   // **********
   // GET
   @action
-  getDay() async {
+  getDay() {
     var prefs = Hive.box('prefs');
     day = prefs.get('day') ?? 0;
   }
 
   @action
-  getLatitude() async {
+  getLatitude() {
     var prefs = Hive.box('prefs');
     latitude = prefs.get('latitude') ?? 0;
   }
 
   @action
-  getLongitude() async {
+  getLongitude() {
     var prefs = Hive.box('prefs');
     longitude = prefs.get('longitude') ?? 0;
   }
 
   @action
-  getAltitude() async {
+  getAltitude() {
     var prefs = Hive.box('prefs');
     altitude = prefs.get('altitude') ?? 0;
   }
 
   @action
-  getTimezone() async {
+  getTimezone() {
     var prefs = Hive.box('prefs');
     timezone = prefs.get('timezone') ?? 0;
   }
 
   @action
-  getFajrAngle() async {
+  getFajrAngle() {
     var prefs = Hive.box('prefs');
     fajrAngle = prefs.get('fajrAngle') ?? 0;
   }
 
   @action
-  getIshaAngle() async {
+  getIshaAngle() {
     var prefs = Hive.box('prefs');
     ishaAngle = prefs.get('ishaAngle') ?? 0;
   }
@@ -185,49 +232,49 @@ abstract class DataBase with Store {
   // **********
   // SET
   @action
-  setDay(newdata) async {
+  setDay(newdata) {
     day = newdata;
     // var prefs = Hive.box('prefs');
     // prefs.put('day', newdata);
   }
 
   @action
-  setLatitude(newdata) async {
+  setLatitude(newdata) {
     latitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('latitude', newdata);
   }
 
   @action
-  setLongitude(newdata) async {
+  setLongitude(newdata) {
     longitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('longitude', newdata);
   }
 
   @action
-  setAltitude(newdata) async {
+  setAltitude(newdata) {
     altitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('altitude', newdata);
   }
 
   @action
-  setTimezone(newdata) async {
+  setTimezone(newdata) {
     timezone = newdata;
     // var prefs = Hive.box('prefs');
     // prefs.put('timezone', newdata);
   }
 
   @action
-  setFajrAngle(newdata) async {
+  setFajrAngle(newdata) {
     fajrAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('fajrAngle', newdata);
   }
 
   @action
-  setIshaAngle(newdata) async {
+  setIshaAngle(newdata) {
     ishaAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('ishaAngle', newdata);
