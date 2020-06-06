@@ -1,4 +1,5 @@
 // import dart and flutter resources
+import 'package:calc_testing/store/city.dart';
 import 'package:calc_testing/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -238,7 +239,11 @@ class _InputState extends State<Input> {
                         // onEditingComplete: () => print('koko'),
                         onEditingComplete: () =>
                             FocusScope.of(context).unfocus(),
-                        onSubmitted: (text) => dataStore.setIshaAngle(text),
+                        onSubmitted: (text) {
+                          dataStore.setIshaAngle(text);
+                          // print('new value $text');
+                          cityStore.setCityValue('');
+                        },
 
                         // onChanged: (text) {
                         //   dataStore.setLatitude(text);

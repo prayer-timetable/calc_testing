@@ -6,11 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:date_format/date_format.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:location/location.dart';
+import 'package:search_choices/search_choices.dart';
 
 // import local package resources
 
 // mobx
 import 'package:calc_testing/store/data.dart';
+import 'package:calc_testing/store/city.dart';
+
+import 'package:calc_testing/theme/colors.dart';
 
 class Preset extends StatefulWidget {
   Preset({Key key, this.title, this.lite}) : super(key: key);
@@ -26,21 +30,9 @@ class Preset extends StatefulWidget {
 
 class _PresetState extends State<Preset> {
   // dropdown
-  final List<DropdownMenuItem> items = [
-    DropdownMenuItem(
-      child: Text('Sarajevo'),
-      value: 'sarajevo',
-    ),
-    DropdownMenuItem(
-      child: Text('Dublin'),
-      value: 'dublin',
-    ),
-    DropdownMenuItem(
-      child: Text('Auto'),
-      value: 'auto',
-    ),
-  ];
-  String selectedValue;
+
+  String _saveString;
+  bool _isButtonDisabled;
 
   @override
   void initState() {
@@ -48,13 +40,30 @@ class _PresetState extends State<Preset> {
     // Future.delayed(const Duration(milliseconds: 1000), () {
     //   dataStore.checkLocation();
     // });
-
+    _saveString = 'Spasi';
+    _isButtonDisabled = false;
+    dataStore.load();
     // dataStore.getAltitude();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _changeText() {
+    setState(() {
+      _isButtonDisabled = true;
+      _saveString = 'Spašeno';
+    });
+
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      // animationController.forward();
+      setState(() {
+        _saveString = 'Spasi';
+        _isButtonDisabled = false;
+      });
+    });
   }
 
   @override
@@ -77,16 +86,42 @@ class _PresetState extends State<Preset> {
             //   height: 24.0,
             // ),
             Text('Preset:', style: Theme.of(context).textTheme.headline2),
-            SearchableDropdown.single(
-              items: items,
-              value: 'sarajevo',
-              hint: "Proizvoljno",
-              searchHint: "Izaberite",
-              onChanged: (value) {
-                dataStore.preset(value);
-                print(value);
-              },
-              isExpanded: true,
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SearchChoices.single(
+                    items: cities,
+                    // doneButton: Text('koko'),
+                    // underline: Divider(
+                    //   color: colorPrimary,
+                    //   height: 1,
+                    //   thickness: 1,
+                    // ),
+                    value: cityStore.cityValue,
+                    hint: "Proizvoljno",
+                    searchHint: "Izaberite",
+                    onChanged: (value) {
+                      dataStore.preset(value);
+                      cityStore.setCityValue(value);
+                      // print(value);
+                    },
+                    closeButton: "Zatvori",
+                    isExpanded: true,
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                        color: _isButtonDisabled
+                            ? colorBackground
+                            : colorTextLight,
+                        onPressed: () {
+                          _isButtonDisabled ? null : dataStore.save();
+                          _isButtonDisabled ? null : _changeText();
+                        },
+                        child: Text(_saveString)))
+              ],
             ),
           ],
         ),

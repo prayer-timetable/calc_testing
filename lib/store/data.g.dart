@@ -237,6 +237,28 @@ mixin _$DataStore on DataBase, Store {
   }
 
   @override
+  dynamic save() {
+    final _$actionInfo =
+        _$DataBaseActionController.startAction(name: 'DataBase.save');
+    try {
+      return super.save();
+    } finally {
+      _$DataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic load() {
+    final _$actionInfo =
+        _$DataBaseActionController.startAction(name: 'DataBase.load');
+    try {
+      return super.load();
+    } finally {
+      _$DataBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 day: ${day},

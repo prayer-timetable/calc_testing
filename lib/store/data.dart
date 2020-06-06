@@ -6,11 +6,13 @@ import 'package:mobx/mobx.dart';
 import 'package:hive/hive.dart';
 
 import 'package:calc_testing/store/prayer.dart';
+import 'package:calc_testing/store/city.dart';
 
 part 'data.g.dart';
 
 class DataStore = DataBase with _$DataStore;
 final dataStore = DataStore();
+final prefs = Hive.box('prefs');
 
 abstract class DataBase with Store {
   @observable
@@ -105,13 +107,36 @@ abstract class DataBase with Store {
     // print(_currentTimeZone);
     // print('after');
 
-    print(_locationData.altitude);
+    // print(_locationData.altitude);
     int timeZone = dataStore.day.toUtc().timeZoneOffset.inHours;
 
     dataStore.setLatitude(_locationData.latitude.toString());
     dataStore.setLongitude(_locationData.longitude.toString());
     dataStore.setAltitude(_locationData.altitude.toString());
     dataStore.setTimezone(timeZone);
+  }
+
+  @action
+  save() {
+    prefs.put('longitude', longitude);
+    prefs.put('latitude', latitude);
+    prefs.put('altitude', altitude);
+    prefs.put('timezone', timezone);
+    prefs.put('ishaAngle', ishaAngle);
+    prefs.put('fajrAngle', fajrAngle);
+    prefs.put('city', cityStore.cityValue);
+  }
+
+  @action
+  load() {
+    // print(prefs.get('longitude'));
+    longitude = prefs.get('longitude') ?? longitude;
+    latitude = prefs.get('latitude') ?? latitude;
+    altitude = prefs.get('altitude') ?? altitude;
+    timezone = prefs.get('timezone') ?? timezone;
+    ishaAngle = prefs.get('ishaAngle') ?? ishaAngle;
+    fajrAngle = prefs.get('fajrAngle') ?? fajrAngle;
+    cityStore.getCityValue();
   }
 
   // **********
