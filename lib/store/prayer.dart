@@ -135,16 +135,18 @@ abstract class PrayerStoreBase with Store {
         ? location.prayers.next
         : location.prayers.current;
 
-    var _hDate = new UmmAlquraCalendar.fromDate(location.durations.nowLocal);
+    var _hDate = new UmmAlquraCalendar.fromDate(location.durations.now);
 
     int _hijriMonth = int.parse(_hDate.toFormat("m")) - 1;
 
+    dataStore.setNow(location.durations.now);
     // print(location.durations.nowLocal);
 
     Strings _strings = new Strings(
-      now: '${formatDate(location.durations.nowLocal, [H, ':', nn, ':', ss])}',
+      // now: '${location.durations.now}',
+      now: '${formatDate(location.durations.now, [H, ':', nn, ':', ss])}',
       date: '${formatDate(
-        location.durations.nowLocal,
+        location.durations.now,
         [d, '. ', MM, ' ', yyyy, '.'],
         locale: BosnianLocale(),
       )}', // DD, ' ', for day of week

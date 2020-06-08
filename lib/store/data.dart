@@ -16,7 +16,7 @@ final prefs = Hive.box('prefs');
 
 abstract class DataBase with Store {
   @observable
-  DateTime day = DateTime.now();
+  DateTime day = DateTime.now().toUtc();
 
   @observable
   double latitude = 43.8563;
@@ -57,6 +57,8 @@ abstract class DataBase with Store {
       TextEditingController(text: '14.6');
 
   // final controllerDay = TextEditingController(text: '${dataStore.day}');
+  @observable
+  DateTime now = DateTime.now();
 
   @action
   tick() {
@@ -67,6 +69,10 @@ abstract class DataBase with Store {
 
   // @computed
   // String get fullName => '$firstName, $lastName';
+  @action
+  setNow(DateTime value) {
+    now = value;
+  }
 
   @action
   preset(value) {
@@ -84,8 +90,8 @@ abstract class DataBase with Store {
         longitude = -6.2344076;
         altitude = 85;
         timezone = 0;
-        fajrAngle = 12.35;
-        ishaAngle = 11.75;
+        fajrAngle = 18;
+        ishaAngle = 16;
         break;
       case 'auto':
         checkLocation();
@@ -145,7 +151,7 @@ abstract class DataBase with Store {
     setLatitude(_locationData.latitude.toString());
     setLongitude(_locationData.longitude.toString());
     setAltitude(_locationData.altitude.toString());
-    setTimezone(timeZone);
+    setTimezone(timeZone.toString());
 
     controllerLatitude.text = latitude.toString();
     controllerLongitude.text = longitude.toString();
@@ -232,51 +238,56 @@ abstract class DataBase with Store {
   // **********
   // SET
   @action
-  setDay(newdata) {
-    day = newdata;
+  setDay(DateTime newdata) {
+    int addHours = isDSTCalc(newdata.toLocal()) ? timezone + 1 : timezone;
+    day = newdata.subtract(Duration(hours: addHours));
     // var prefs = Hive.box('prefs');
     // prefs.put('day', newdata);
   }
 
   @action
-  setLatitude(newdata) {
+  setLatitude(String newdata) {
     latitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('latitude', newdata);
   }
 
   @action
-  setLongitude(newdata) {
+  setLongitude(String newdata) {
     longitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('longitude', newdata);
   }
 
   @action
-  setAltitude(newdata) {
+  setAltitude(String newdata) {
     altitude = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('altitude', newdata);
   }
 
   @action
-  setTimezone(newdata) {
-    timezone = newdata;
+  setTimezone(String newdata) {
+    timezone = int.parse(newdata);
+
     // var prefs = Hive.box('prefs');
     // prefs.put('timezone', newdata);
   }
 
   @action
-  setFajrAngle(newdata) {
+  setFajrAngle(String newdata) {
     fajrAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('fajrAngle', newdata);
   }
 
   @action
-  setIshaAngle(newdata) {
+  setIshaAngle(String newdata) {
     ishaAngle = double.parse(newdata);
     // var prefs = Hive.box('prefs');
     // prefs.put('ishaAngle', newdata);
   }
+
+  bool isDSTCalc(DateTime d) =>
+      new DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
 }

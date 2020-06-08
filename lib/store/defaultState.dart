@@ -1,7 +1,7 @@
 import 'package:calc_testing/helpers/prayerClasses.dart';
 import 'package:calc_testing/helpers/language.dart';
 
-DateTime now = DateTime.now();
+DateTime now = DateTime.now().toUtc();
 
 // needed for fetchDefault
 Map defaultSettings = {
