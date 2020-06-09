@@ -110,12 +110,13 @@ class _ClockState extends State<Clock> {
                   }, onConfirm: (date) {
                     print('confirm $date');
                     dataStore.setDay(DateTime(
-                        date.year,
-                        date.month,
-                        date.day,
-                        dataStore.day.hour,
-                        dataStore.day.minute,
-                        dataStore.day.second));
+                      date.year,
+                      date.month,
+                      date.day,
+                      dataStore.now.hour,
+                      dataStore.now.minute,
+                      dataStore.now.second,
+                    ));
                   }, currentTime: dataStore.now, locale: LocaleType.en);
                 },
                 child: Text(
@@ -131,9 +132,10 @@ class _ClockState extends State<Clock> {
                   }, onConfirm: (time) {
                     print('confirm $time');
                     dataStore.setDay(DateTime.utc(
-                        dataStore.now.year,
-                        dataStore.now.month,
-                        dataStore.now.day,
+                        // dataStore.now.year,
+                        time.year,
+                        time.month,
+                        time.day,
                         time.hour,
                         time.minute,
                         time.second));
