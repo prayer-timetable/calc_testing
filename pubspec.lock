@@ -443,7 +443,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "215218d6877ec1c72fb4ff7a56511d094494d260"
+      resolved-ref: b948e081089bd75e592cdeb5793bad7c0055c4ab
       url: "git://github.com/prayer-timetable/prayer_calc_dart.git"
     source: git
     version: "1.0.0"
